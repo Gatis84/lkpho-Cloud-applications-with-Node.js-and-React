@@ -4,6 +4,9 @@ const express = require('express');
 // Create an instance of an Express application
 const app = new express();
 
+// Define an array containing the names of the months
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
 // Initialize an array to store login details
 let loginDetails = [];
 
@@ -26,6 +29,20 @@ app.post("/login/:name", (req, res) => {
 // Define a dynamic route to greet users by name
 app.get("/:name", (req, res) => {
     res.send("Hello " + req.params.name);
+});
+
+// Define a route to fetch the month name based on a given number
+app.get("/fetchMonth/:num", (req, res) => {
+    // Parse the number from the request parameters
+    let num = parseInt(req.params.num);
+    // Check if the number is a valid month number
+    if(num < 1 || num > 12) {
+        // Send an error message if the number is not valid
+        res.send("Not a valid month number");
+    } else {
+        // Send the corresponding month name if the number is valid
+        res.send(months[num - 1]);
+    }
 });
 
 // Start the server and listen on port 3333
