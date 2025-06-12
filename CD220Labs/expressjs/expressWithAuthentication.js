@@ -1,4 +1,4 @@
- // Importing required modules: Express.js, JSON Web Token (JWT), and Express session
+// Importing required modules: Express.js, JSON Web Token (JWT), and Express session
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
@@ -25,7 +25,12 @@ const app = express();
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 
-app.use(session({ secret: "fingerpint" })); // Middleware to handle sessions
+app.use(session({
+  secret: "fingerpint",
+  resave: false,              // Don't resave session if not modified
+  saveUninitialized: false,   // Don't save uninitialized sessions
+  cookie: { secure: false }   // Use `secure: true` if using HTTPS
+})); // Middleware to handle sessions
 
 // Middleware to authenticate users using JWT
 app.use("/auth", function auth(req, res, next) {
