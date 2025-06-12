@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# additional
+async_callback/node_modules/
+**/node_modules/
