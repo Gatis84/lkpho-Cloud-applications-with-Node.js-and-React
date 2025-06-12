@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumping duck</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            background-color: #78920e;
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+
+        .duck {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 80px;
+            /* Adjust width based on your image size */
+            height: 50px;
+            /* Adjust height based on your image size */
+            background-image: url('duck.png');
+            background-size: cover;
+            background-position: center;
+            animation: jump 2s infinite ease-in-out;
+        }
+
+        /* Jumping animation */
+        @keyframes jump {
+
+            0%,
+            100% {
+                bottom: 0;
+            }
+
+            50% {
+                bottom: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <div class="duck"></div>
+        <script>
+            // Select the duck element
+            const croc = document.querySelector('.duck');
+            let positionX = 50; // Starting position of duck on X-axis (left)
+
+            // Function to move the duck
+            function moveduck(event) {
+                const step = 10; // How far the duck moves per key press
+
+                // Move left
+                if (event.key === "ArrowLeft") {
+                    positionX -= step;
+                    // Prevent it from moving off-screen to the left
+                    if (positionX < 0) positionX = 0;
+                }
+                // Move right
+                else if (event.key === "ArrowRight") {
+                    positionX += step;
+                    // Prevent it from moving off-screen to the right
+                    if (positionX > 320) positionX = 320; // 400 (container width) - 80 (duck width)
+                }
+
+                // Update duck's position
+                croc.style.left = positionX + 'px';
+            }
+
+            // Listen for keydown event to move duck
+            window.addEventListener('keydown', moveduck);
+        </script>
+    </div>
+
+</body>
+
+</html>
